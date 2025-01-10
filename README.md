@@ -43,3 +43,18 @@ Generate medical history reports for a specific patient.
 
 Implement basic user authentication to manage access to the system.
 Different roles (e.g., admin, doctor, nurse) should have different access levels and permissions.
+
+## Applying Design Patterns in Your Healthcare Management System
+After create a system from previous exercise, it’s time for going to the next phase of your Healthcare Management System project! Now that you have developed the core functionalities—such as managing patients, doctors, nurses, appointments, and medical records. It’s time to enhance your system using design patterns. Design patterns are proven solutions to common software design problems and can help you create a more flexible, maintainable, and scalable system.
+
+### Recommendation for Applying a Design Pattern:
+
+#### Identify the Pattern that Fits:
+Review the various design patterns and choose one that addresses a specific need in your system. For instance:
+Singleton Pattern: Ensure a single instance of the system's configuration settings or logging service.
+Factory Method Pattern: Create different types of user objects (patients, doctors, nurses) without specifying the exact class.
+Observer Pattern: Implement notification systems for appointment updates or medical record changes.
+#### Integrate the Pattern Thoughtfully:
+Apply the chosen pattern to a relevant part of your system where it will solve a particular problem or improve design. For example:
+Use the Factory Method to handle the creation of different user roles, ensuring that the system can be extended with minimal changes.
+Implement the Observer Pattern to keep track of changes in medical records and notify relevant stakeholders (patients, doctors).
