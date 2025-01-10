@@ -2,6 +2,8 @@
 using Healthcare_Management_System.Models;
 using Healthcare_Management_System.Services;
 using Healthcare_Management_System.Access;
+using Healthcare_Management_System.Factories;
+using Healthcare_Management_System.Observers;
 
 namespace Healthcare_Management_System
 {
@@ -17,15 +19,20 @@ namespace Healthcare_Management_System
             var appointmentService = new AppointmentService();
             var medicalRecordService = new MedicalRecordService();
 
-            // Add users data
-            var adminUser = new User {Id = 1, Username = "admin", Password = "admin", Role = "admin"};
-            var doctorUser = new User {Id = 2, Username = "doctor", Password = "doctor", Role = "doctor"};
-            var nurseUser = new User {Id = 3, Username = "nurse", Password = "nurse", Role = "nurse"};
-            var patientUser = new User {Id = 4, Username = "patient", Password = "patient", Role = "patient"};
+            // Create instance of the UserFactory
+            var userFactory = new UserFactory();
+
+            // Add users data using the factory
+            var adminUser = userFactory.CreateUser(1, "admin", "admin", "admin");
+            var doctorUser = userFactory.CreateUser(2, "doctor", "doctor", "doctor");
+            var nurseUser = userFactory.CreateUser(3, "nurse", "nurse", "nurse");
+            var patientUser = userFactory.CreateUser(4, "patient", "patient", "patient");
+
             userService.AddUser(adminUser);
             userService.AddUser(doctorUser);
             userService.AddUser(nurseUser);
             userService.AddUser(patientUser);
+            
             
             // Authenticate user
             Console.WriteLine("Enter username:");
@@ -56,6 +63,16 @@ namespace Healthcare_Management_System
                         break;
 
                 }
+
+                // Example of attaching observers and updating a medial record
+                var medicalRecord = new MedicalRecord { Id = 1, PatientId = 3, DoctorId = 4, Diagnosis = "None", Treatment = "None" };
+                var doctorObserver = new DoctorObserver(4);
+                var patientObserver = new PatientObserver(2);
+
+                medicalRecord.Attach(doctorObserver);
+                medicalRecord.Attach(patientObserver);
+
+                medicalRecord.UpdateRecord("Heart Disease", "Medication");
             }
             else
             {
